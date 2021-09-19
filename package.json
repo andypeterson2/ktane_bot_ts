@@ -1,0 +1,41 @@
+{
+  "name": "ktane_bot_ts",
+  "version": "0.0.1",
+  "description": "AI assistant for Keep Talking and Nobody Explodes",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev --respawn ./src",
+    "start:prod": "node ./dist/index.js",
+    "build": "npm run build-ts",
+    "build-ts": "tsc",
+    "clean": "rm -rf ./dist",
+    "lint": "eslint --ext .ts ./src",
+    "lint-fix": "eslint --ext .ts ./src --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andypeterson2/ktane_bot_ts.git"
+  },
+  "author": "Andrew Peterson",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/andypeterson2/ktane_bot_ts/issues"
+  },
+  "homepage": "https://github.com/andypeterson2/ktane_bot_ts#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-typescript": "^14.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.25.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.4.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.3"
+  }
+}
