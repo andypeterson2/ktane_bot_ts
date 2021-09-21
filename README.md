@@ -5,3 +5,4 @@ Basic installation process:
  - Make sure you have the google cloud API installed via [this](https://cloud.google.com/sdk/docs/install)
  - Make sure you have a project created and configured to your machine that uses the speech-to-text API
  - Install SoX and have it available in your $PATH
+ - Add a .d.ts file to node-record-lpcm16 that has "declare module 'node-record-lpcm16';" in it

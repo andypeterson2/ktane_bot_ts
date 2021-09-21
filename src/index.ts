@@ -14,13 +14,13 @@
 
 // Clone of https://github.com/googleapis/nodejs-speech/blob/HEAD/samples/recognize.js for me to test to make sure my config + API setup worked fine
 
-import * as recorder from "node-record-lpcm16";
+import { record } from "node-record-lpcm16";
 
 // Imports the Google Cloud client library
-import * as speech from "@google-cloud/speech";
+import { SpeechClient } from "@google-cloud/speech";
 
 // Creates a client
-const client = new speech.SpeechClient();
+const client = new SpeechClient();
 
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
@@ -35,7 +35,7 @@ const request = {
     sampleRateHertz: sampleRateHertz,
     languageCode: languageCode,
   },
-  interimResults: true, // If you want interim results, set this to true
+  interimResults: false, // If you want interim results, set this to true
 };
 
 // Create a recognize stream
@@ -52,15 +52,14 @@ const recognizeStream = client
 
 // Start recording and send the microphone input to the Speech API.
 // Ensure SoX is installed, see https://www.npmjs.com/package/node-record-lpcm16#dependencies
-recorder
-  .record({
-    sampleRateHertz: sampleRateHertz,
-    threshold: 0,
-    // Other options, see https://www.npmjs.com/package/node-record-lpcm16#options
-    verbose: false,
-    recordProgram: "rec", // Try also "arecord" or "sox"
-    silence: "10.0",
-  })
+record({
+  sampleRateHertz: sampleRateHertz,
+  threshold: 0,
+  // Other options, see https://www.npmjs.com/package/node-record-lpcm16#options
+  verbose: false,
+  recordProgram: "rec", // Try also "arecord" or "sox"
+  silence: "10.0",
+})
   .stream()
   .on("error", console.error)
   .pipe(recognizeStream);
