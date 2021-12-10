@@ -1,5 +1,5 @@
 /*
- * This file contains the bomb class. The bomb is made up of at most 12 components, each of which
+ * This file contains the bomb class. The bomb is made up of at most 12 modules, each of which
  * is detailed in their own file. A bomb has various other properties, such as having (but not
  * necessarily guaranteed to have)
  *    - one or more of the following ports: DVI-D, Parallel, PS/2, RJ-45, Serial, and Stereo RCA
