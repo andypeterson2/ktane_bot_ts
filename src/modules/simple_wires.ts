@@ -1,3 +1,5 @@
+import Bomb from "../bomb";
+import Module from "./module";
 /*
  * Module description pulled from the manual: https://www.bombmanual.com/print/KeepTalkingAndNobodyExplodes-BombDefusalManual-v1.pdf
  * A wire module can have 3-6 wires on it. Only the one correct wire needs to be cut to disarm
@@ -30,21 +32,18 @@
  *    Otherwise, if there are no red wires, cut the last wire.
  *    Otherwise, cut the fourth wire.
  */
-export default class SimpleWires {
+export default class SimpleWires extends Module {
   /* Member Variables */
   // The wires on the module
   wires: string[] = [];
 
-  // The last digit of the serial number
-  lastDigit: number;
-
   /* Constructor */
-  constructor(wires: string[], lastDigit: number) {
+  constructor(wires: string[], bomb: Bomb) {
+    super(bomb);
     wires.forEach((wire) => {
       this.validateWire(wire);
       this.addWire(wire);
     });
-    this.lastDigit = lastDigit;
   }
 
   /* Functions */
@@ -103,7 +102,7 @@ export default class SimpleWires {
   solve4Wires() {
     if (
       this.wires.filter((wire) => wire === "red").length > 1 &&
-      this.lastDigit % 2 === 1
+      this.bomb.serielOdd
     ) {
       return "cut the last red wire";
     } else if (
@@ -121,10 +120,7 @@ export default class SimpleWires {
   }
 
   solve5Wires() {
-    if (
-      this.wires[this.wires.length - 1] === "black" &&
-      this.lastDigit % 2 === 1
-    ) {
+    if (this.wires[this.wires.length - 1] === "black" && this.bomb.serielOdd) {
       return "cut the fourth wire";
     } else if (
       this.wires.filter((wire) => wire === "red").length === 1 &&
@@ -139,7 +135,7 @@ export default class SimpleWires {
   }
 
   solve6Wires() {
-    if (this.wires.indexOf("yellow") === -1 && this.lastDigit % 2 === 1) {
+    if (this.wires.indexOf("yellow") === -1 && this.bomb.serielOdd) {
       return "cut the third wire";
     } else if (
       this.wires.filter((wire) => wire === "yellow").length === 1 &&

@@ -1,3 +1,4 @@
+import Indicator from "./information_modules/indicator";
 /*
  * This file contains the bomb class. The bomb is made up of at most 12 modules, each of which
  * is detailed in their own file. A bomb has various other properties, such as having (but not
@@ -27,7 +28,7 @@ export default class Bomb {
   time: number;
 
   // Amount of batteries found within enclosures on the sides of the bomb casing.
-  batteryCount = 0;
+  batteries = 0;
 
   // The serial number of the bomb
   serialNumber = "";
@@ -39,12 +40,12 @@ export default class Bomb {
   serielOdd = false;
 
   // List of labelled indicator lights found on the sides of the bomb casing.
-  indicators: string[] = [];
+  indicators: Indicator[] = [];
 
   // A quick way to check if either the CAR or FRK indicator is lit (useful in vanilla modules)
-  carIndicator = false;
+  litCARIndicator = false;
 
-  frkIndicator = false;
+  litFRKIndicator = false;
 
   /* Present ports on the bomb, stored in an array of boolean values corresponding to the following:
    * - DVI-D, Parallel, PS/2, RJ-45, Serial, and Stereo RCA */
@@ -93,20 +94,22 @@ export default class Bomb {
   }
 
   // Adds an indicator to the bomb.
-  addIndicator(indicator: string) {
-    this.indicators.push(indicator);
-    this.carIndicator = this.carIndicator || indicator === "CAR";
-    this.frkIndicator = this.frkIndicator || indicator === "FRK";
+  addIndicator(label: string, lit: boolean) {
+    this.indicators.push(new Indicator(label.toUpperCase(), lit));
+    this.litCARIndicator =
+      this.litCARIndicator || (label.toUpperCase() === "CAR" && lit);
+    this.litFRKIndicator =
+      this.litFRKIndicator || (label.toUpperCase() === "FRK" && lit);
   }
 
   // Quickly set the CAR indicator indicator if only dealing with vanilla modules.
   setCarIndicator(carIndicator: boolean) {
-    this.carIndicator = carIndicator;
+    this.litCARIndicator = carIndicator;
   }
 
   // Quickly set the FRK indicator indicator if only dealing with vanilla modules.
   setFrkIndicator(frkIndicator: boolean) {
-    this.frkIndicator = frkIndicator;
+    this.litFRKIndicator = frkIndicator;
   }
 
   // Adds a port to the bomb.
@@ -135,7 +138,7 @@ export default class Bomb {
 
   // Sets the number of batteries found on the bomb.
   setBatteryCount(batteryCount: number) {
-    this.batteryCount = batteryCount;
+    this.batteries = batteryCount;
   }
 
   // Adds a strike to the bomb. If the bomb has no strikes left, the bomb has exploded.
